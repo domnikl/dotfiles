@@ -10,3 +10,6 @@ function color_my_prompt {
 }
 
 color_my_prompt
+
+bind 'set completion-ignore-case on'
+
