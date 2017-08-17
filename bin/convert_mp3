@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+set -e
+
+for i in "$@"
+do
+  filename=$(basename "$i")
+  dirname=$(dirname "$i")
+
+  extension="${filename##*.}"
+  filename="${filename%.*}"
+
+  new="$dirname/$filename.mp3"
+  echo "converting $i to $new"
+
+  ffmpeg -i "$i" -b:a 128K -q 1 -map a -vn "$new"
+done

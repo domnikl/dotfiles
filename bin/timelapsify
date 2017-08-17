@@ -1,0 +1,14 @@
+#!/bin/sh
+
+PATHNAME=`pwd`
+PROJECT_NAME=`basename $PATHNAME`
+OUTPUT_FILE="$PATHNAME/$PROJECT_NAME.mp4"
+INPUT_FORMAT="image%05d.jpg"
+
+ffmpeg -y -r 10 -f image2 -i $INPUT_FORMAT -s 1920x1080 -pix_fmt yuv420p "$OUTPUT_FILE"
+
+echo "DONE: output at $OUTPUT_FILE"
+
+if type growlnotify >/dev/null 2>&1; then
+	growlnotify -n "timelapsify" -m "timelapsify is done here ($OUTPUT_FILE)" -i mp4 -s
+fi

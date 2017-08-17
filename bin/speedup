@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+INPUT="$1"
+FACTOR="$2"
+ffmpeg -i $INPUT -filter:v "setpts=$FACTOR*PTS" -an -pix_fmt yuv420p speedup_$INPUT
+
+if type growlnotify >/dev/null 2>&1; then
+	growlnotify -n "speedup" -m "speedup is done here ($(pwd))" -i mp4 -s
+fi
