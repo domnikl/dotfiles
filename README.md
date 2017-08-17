@@ -1,6 +1,6 @@
 # dotfiles
 
-These are my dotfiles, living a happy live in ~.
+These are my dotfiles, living a happy life in ~.
 
 Read more at:
 
