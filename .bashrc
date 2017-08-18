@@ -13,3 +13,5 @@ color_my_prompt
 
 bind 'set completion-ignore-case on'
 
+eval "$(direnv hook bash)"
+ 
