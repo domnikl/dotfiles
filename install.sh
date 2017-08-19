@@ -4,6 +4,7 @@ DOTFILES_PATH=$(pwd)
 
 cd $HOME
 ln -fs $DOTFILES_PATH/.bashrc .bashrc
+ln -fs $DOTFILES_PATH/.bashrc .profile
 ln -fs $DOTFILES_PATH/.gemrc .gemrc
 ln -fs $DOTFILES_PATH/.gitconfig .gitconfig
 ln -fs $DOTFILES_PATH/.vimrc .vimrc
@@ -11,7 +12,7 @@ cd -
 
 if type "defaults" > /dev/null; then
     echo "setting MAC defaults ..."
-	
+
     # stop scrollbars from disappearing
     defaults write -g NSOverlayScrollerShowOnMouseOver -bool TRUE
 
@@ -36,4 +37,3 @@ if type "defaults" > /dev/null; then
     # indicate hidden app icons in dock
     defaults write com.apple.dock showhidden -bool TRUE; killall Dock
 fi
-
