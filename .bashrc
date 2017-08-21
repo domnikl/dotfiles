@@ -1,3 +1,7 @@
+DIR=`readlink ~/.bashrc`
+DIR=`dirname "$DIR"`
+export PATH=$DIR/bin:$PATH
+
 function color_my_prompt {
     local __user_and_host="\[\033[00;32m\]\u@\h"
     local __cur_location="\[\033[01;34m\]\W"
@@ -14,4 +18,3 @@ color_my_prompt
 bind 'set completion-ignore-case on'
 
 eval "$(direnv hook bash)"
- 
