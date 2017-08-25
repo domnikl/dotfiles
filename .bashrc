@@ -1,6 +1,7 @@
 DIR=`readlink ~/.bashrc`
 DIR=`dirname "$DIR"`
 export PATH=$DIR/bin:$PATH
+export ELIXIR_EDITOR="atom"
 
 function color_my_prompt {
     local __user_and_host="\[\033[00;32m\]\u@\h"
