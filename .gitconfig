@@ -2,3 +2,23 @@
 [user]
 	name = Dominik Liebler
 	email = liebler.dominik@gmail.com
+
+[color]
+	ui = auto
+[color "branch"]
+	current = green reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
