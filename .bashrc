@@ -2,6 +2,7 @@ DIR=`readlink ~/.bashrc`
 DIR=`dirname "$DIR"`
 export PATH=$DIR/bin:$PATH
 export ELIXIR_EDITOR="atom"
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 # aliases
 
