@@ -4,6 +4,9 @@ export PATH=$DIR/bin:$PATH
 export ELIXIR_EDITOR="atom"
 export ERL_AFLAGS="-kernel shell_history enabled"
 
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
 # aliases
 
 # Detect which `ls` flavor is in use

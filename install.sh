@@ -13,6 +13,8 @@ cd -
 if type "defaults" > /dev/null; then
     echo "setting MAC defaults ..."
 
+    brew install bash-completion
+
     # stop scrollbars from disappearing
     defaults write -g NSOverlayScrollerShowOnMouseOver -bool TRUE
 
