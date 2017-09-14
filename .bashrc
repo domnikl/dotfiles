@@ -30,7 +30,7 @@ function get_git_changes {
     if [ ! -z "$__branch" ] && (( "$__changed_files" > 0 )); then
         echo "($__branch ⚡️ $__changed_files)"
     elif [ ! -z "$__branch" ]; then
-        echo "($__branch☀️ )"
+        echo "($__branch ☀️ )"
     else
       echo ""
     fi
