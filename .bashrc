@@ -28,21 +28,19 @@ function get_git_changes {
     local __changed_files=`git diff --name-only HEAD 2> /dev/null | wc -l | sed -E s/[^0-9]//g`
 
     if [ ! -z "$__branch" ] && (( "$__changed_files" > 0 )); then
-        echo "($__branch ⚡️ $__changed_files)"
+        echo "($__branch *$__changed_files)"
     elif [ ! -z "$__branch" ]; then
-        echo "($__branch ☀️ )"
-    else
-      echo ""
+        echo "($__branch ✓)"
     fi
 }
 
 function color_my_prompt {
-    local __user_and_host="\[\033[00;32m\]\u@\h"
-    local __cur_location="\[\033[01;34m\]\W"
-    local __git_branch_color="\[\033[01;33m\]"
+    local __user_and_host="\[\e[0;32m\]\u@\h"
+    local __cur_location="\[\e[1;34m\]\W"
+    local __git_branch_color="\[\e[1;33m\]"
     local __git_changes='`get_git_changes`'
-    local __prompt_tail="\[\033[0;36m\]❯"
-    local __last_color="\[\033[00m\]"
+    local __prompt_tail="\[\e[0;36m\]❯"
+    local __last_color="\[\e[00m\]"
     export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_changes$__prompt_tail$__last_color "
 }
 
