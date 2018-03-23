@@ -2,12 +2,8 @@ DIR=`readlink ~/.bashrc`
 DIR=`dirname "$DIR"`
 
 export GOPATH=$HOME/Workspace/go
-
-export PATH=$DIR/bin:$PATH
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export PATH=$PATH:$GOPATH/bin
-
-export ELIXIR_EDITOR="atom"
+export PATH=$DIR/bin:$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
+export ELIXIR_EDITOR="code"
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
