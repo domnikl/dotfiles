@@ -4,4 +4,10 @@ set -e
 
 ARGS="$@"
 
-youtube-dl --console-title -t --extract-audio --audio-format mp3 $ARGS
+youtube-dl --geo-bypass \
+    -i \
+    --console-title \
+    -o "%(title)s.%(ext)s" \
+    --extract-audio \
+    --audio-format mp3 \
+    $ARGS
