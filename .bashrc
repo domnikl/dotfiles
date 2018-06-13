@@ -8,6 +8,10 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 export EDITOR="vim"
 
 # aliases
+alias gs="git status --show-stash"
+alias gsf="gs -v"
+alias gap="git add -p"
+alias gdc="git diff --cached"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
