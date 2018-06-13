@@ -3,6 +3,9 @@
 	name = Dominik Liebler
 	email = liebler.dominik@gmail.com
 
+[alias]
+	co = checkout
+
 [color]
 	ui = auto
 [color "branch"]
