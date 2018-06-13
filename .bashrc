@@ -49,11 +49,10 @@ function get_git_changes {
 }
 
 function color_my_prompt {
-    local __user_color="\[\e[0;32m\]"
-    local __dir_color="\[\e[1;34m\]"
-
-    local __prompt_tail_color="$__user_color"
-    local __color_reset="\[\e[00m\]"
+    local __user_color="\[$(tput setaf 2)\]"
+    local __dir_color="\[$(tput bold)$(tput setaf 4)\]"
+    local __color_reset="\[$(tput sgr0)\]"
+    local __prompt_tail_color="\[$(tput sgr0)$(tput setaf 2)\]"
 
     local __user="$__user_color\u"
     local __dir="$__dir_color\w"
@@ -62,8 +61,5 @@ function color_my_prompt {
 
     export PS1="$__user $__dir $__git_changes$__prompt_tail$__color_reset"
 }
-
-# prevent from wrapping lines
-stty columns 120
 
 color_my_prompt
