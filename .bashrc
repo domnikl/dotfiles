@@ -3,13 +3,10 @@ DIR=`dirname "$DIR"`
 
 export GOPATH=$HOME/Workspace/go
 export PATH=$DIR/bin:$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
-export ELIXIR_EDITOR="code"
+export ELIXIR_EDITOR="vim"
 export ERL_AFLAGS="-kernel shell_history enabled"
 export EDITOR="vim"
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-. $(brew --prefix)/etc/bash_completion
-fi
 # aliases
 
 # Detect which `ls` flavor is in use
@@ -50,5 +47,3 @@ function color_my_prompt {
 color_my_prompt
 
 bind 'set completion-ignore-case on'
-
-eval "$(direnv hook bash)"
