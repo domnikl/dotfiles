@@ -5,7 +5,11 @@ DIR=`dirname "$DIR"`
 export PATH=$DIR/bin:$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
 export EDITOR="vim"
 
+# ignore case on bash completion
 bind 'set completion-ignore-case on'
+
+# ignore duplicates in bash history
+export HISTCONTROL=ignoredups
 
 # settings for Golang
 export GOPATH=$HOME/Workspace/go
@@ -58,5 +62,8 @@ function color_my_prompt {
 
     export PS1="$__user $__dir $__git_changes$__prompt_tail$__color_reset"
 }
+
+# prevent from wrapping lines
+stty columns 120
 
 color_my_prompt
