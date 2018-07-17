@@ -11,6 +11,13 @@ bind 'set completion-ignore-case on'
 # ignore duplicates in bash history
 export HISTCONTROL=ignoredups
 
+# phpenv
+export PHPENV_ROOT="$HOME/.phpenv"
+if [ -d "${PHPENV_ROOT}" ]; then
+  export PATH="${PHPENV_ROOT}/bin:${PATH}"
+  eval "$(phpenv init -)"
+fi
+
 # settings for Golang
 export GOPATH=$HOME/Workspace/go
 
