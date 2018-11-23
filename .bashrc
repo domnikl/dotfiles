@@ -26,6 +26,7 @@ export ELIXIR_EDITOR="$EDITOR"
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # aliases (git)
+alias git='LANG=en_GB git'
 alias gs="git status --show-stash"
 alias gsf="gs -v"
 alias gap="git add -p"
