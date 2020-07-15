@@ -50,3 +50,4 @@ if updated
   system "git log --color --pretty=oneline --abbrev-commit #{old_head}.. | sed 's/^/  /'"
 end
 
+system "git branch --merged | grep  -v '\\*\\|master$' | xargs -rn 1 git branch -d"
