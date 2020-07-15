@@ -12,4 +12,4 @@ Clone this repo and run:
 
 ## Font
 
-I use the Fira Code font available [here](https://github.com/tonsky/FiraCode). It will automatically be downloaded and installed using `install.sh`.
+I use the Fira Mono for Powerline font available [here](https://github.com/powerline/fonts/tree/master/FiraMono). Be sure to use that wherever your terminal runs.
