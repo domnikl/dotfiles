@@ -15,6 +15,8 @@
 # https://github.com/holman/dotfiles/blob/master/bin/git-up
 # and then Barijaona Ramaholimihaso
 # https://gist.github.com/barijaona/3194807
+# and then Dominik Liebler
+# https://github.com/domnikl/dotfiles/blob/master/bin/git-reup
 
 require 'shellwords'
 
@@ -50,4 +52,8 @@ if updated
   system "git log --color --pretty=oneline --abbrev-commit #{old_head}.. | sed 's/^/  /'"
 end
 
-system "git branch --merged | grep  -v '\\*\\|master$' | xargs -rn 1 git branch -d"
+`git branch --merged`.lines.each do |branch|
+  unless branch.chomp.end_with?("master")
+    system "git branch -d #{branch.chomp}"
+  end
+end
