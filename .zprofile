@@ -45,8 +45,13 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   ${ZDOTDIR:-$HOME}/dotfiles/bin
+  ${ZDOTDIR:-$HOME}/.composer/vendor/bin
+  ${ZDOTDIR:-$HOME}/.rvm/bin
   $path
 )
+
+# workspace hash dir
+hash -d w="${ZDOTDIR:-$HOME}/Workspace"
 
 #
 # Less
