@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+branch = `git branch --show-current`
+commit = `git log -1 --grep #{branch}`
+args = ARGV.join(', ')
+
+unless commit.empty?
+    system "git commit --amend -CHEAD #{args}"
+else
+    puts "ERROR: there is no existing commit with the ticket name in it, aborting"
+    exit(1)
+end
