@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# TODO: find dirs without git init'ed
+
+set -e
+
+repos=`find . -type d -name .git`
+exit_code=0
+
+for repo in $repos
+do
+    dir=`dirname "$repo"`
+    remotes=`git -C "$dir" remote -v`
+
+    if [ -z "$remotes" ]; then
+        echo $dir
+        exit_code=1
+    fi
+done
+
+exit $exit_code
