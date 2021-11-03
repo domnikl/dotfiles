@@ -20,6 +20,8 @@ fi
 # Customize to your needs...
 
 alias git='LANG=en_US git'
+alias k='kubectl'
+alias kp='kubectl get pods'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
