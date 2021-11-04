@@ -8,7 +8,7 @@ file_path: str = os.path.join(os.path.expanduser('~'), '.standup')
 
 def save(phrase: str):
     with open(file_path, 'a+') as file:
-        file.write(phrase)
+        file.write(phrase + "\n")
 
 def read() -> List[str]:
     contents = []
@@ -29,5 +29,5 @@ if __name__ == '__main__':
         items: List[str] = map(lambda x: '* ' + x, read())
 
         print("*What did you spend your time on yesterday?*")
-        print("\n".join(items))
+        print("".join(items).strip())
         print("*What is on your agenda today?*")
