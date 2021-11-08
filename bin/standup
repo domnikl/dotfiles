@@ -3,12 +3,15 @@
 import sys
 import os
 from typing import List
+from datetime import date
 
 file_path: str = os.path.join(os.path.expanduser('~'), '.standup')
+
 
 def save(phrase: str):
     with open(file_path, 'a+') as file:
         file.write(phrase + "\n")
+
 
 def read() -> List[str]:
     contents = []
@@ -20,14 +23,19 @@ def read() -> List[str]:
 
     return contents
 
+
 if __name__ == '__main__':
     phrase: str = ' '.join(sys.argv[1:])
+    last_day = 'yesterday'
+
+    if date.today().weekday() == 0:
+        last_day = 'on Friday'
 
     if len(phrase) > 0:
         save(phrase)
     else:
         items: List[str] = map(lambda x: '* ' + x, read())
 
-        print("*What did you spend your time on yesterday?*")
+        print("*What did you spend your time on {}?*".format(last_day))
         print("".join(items).strip())
         print("*What is on your agenda today?*")
