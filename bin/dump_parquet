@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+import sys
+import pandas as pd
+
+path = sys.argv[1::][0]
+df = pd.read_parquet(path)
+
+print(df)

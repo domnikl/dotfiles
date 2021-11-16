@@ -7,7 +7,14 @@ These are my dotfiles, living a happy life in ~.
 Clone this repo and run:
 
 ```
+brew install direnv htop krew helm kafka kcat kustomize node python@3.9 ruby wget zsh
 ./install.sh
+```
+
+To install Python dependencies required for running some of the scripts, do the following:
+
+```sh
+pip3 install -r requirements.txt
 ```
 
 ## Font
