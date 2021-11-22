@@ -8,6 +8,7 @@ Clone this repo and run:
 
 ```
 brew install direnv htop krew helm kafka kcat kustomize node python@3.9 ruby wget zsh
+sh -c "$(wget -O- https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
 ./install.sh
 ```
 
