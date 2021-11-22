@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # TODO: find dirs without git init'ed
+# finds git repos that don't have a remote (yet)
 
 set -e
 
