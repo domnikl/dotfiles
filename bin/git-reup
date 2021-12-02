@@ -53,7 +53,9 @@ if updated
 end
 
 `git branch --merged`.lines.each do |branch|
-  unless branch.chomp.end_with?("master")
-    system "git branch -d #{branch.chomp}"
+  chomped = branch.chomp
+
+  unless chomped.start_with?("*") or chomped.end_with?("master") or chomped.end_with?("main")
+    system "git branch -d #{chomped}"
   end
 end
