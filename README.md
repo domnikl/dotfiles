@@ -20,4 +20,4 @@ pip3 install -r requirements.txt
 
 ## Font
 
-I use the Fira Mono for Powerline font available [here](https://github.com/powerline/fonts/tree/master/FiraMono). Be sure to use that wherever your terminal runs.
+I use the MesloLGS NF font available [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k). Be sure to use that wherever your terminal runs (VSCode, IntelliJ IDEA, iTerm, Hyper, etc.).
