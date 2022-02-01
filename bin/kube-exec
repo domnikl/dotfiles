@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+import argparse
+import subprocess
+import sys
+from kubernetes import client, config
+
+parser = argparse.ArgumentParser(description='run kube exec on deployments')
+parser.add_argument('-n', metavar='namespace', type=str, nargs='?', default='default', help="a Kubernetes namespace to search in")
+parser.add_argument('owner', nargs=1, help="a string matching a deployment/replication controller/etc.")
+parser.add_argument('command', nargs='+', help="command to run in the pod")
+args = parser.parse_args()
+
+config.load_kube_config()
+v1 = client.CoreV1Api()
+
+response = v1.list_namespaced_pod(args.n)
+
+for i in response.items:
+    owner: str = i.metadata.owner_references[0].name
+    command: str = ' '.join(args.command)
+
+    if args.owner[0] in owner:
+        print(f"executing '{command}' in '{i.metadata.name}'")
+
+        status = subprocess.call(f'kubectl exec --stdin --tty -n {args.n} {i.metadata.name} -- {command}', shell=True)
+        sys.exit(status)
+        
+
+print(f"No pod was found matching the owner reference '{args.owner[0]}' in namespace '{args.n}'", file=sys.stderr)      
+sys.exit(1)
