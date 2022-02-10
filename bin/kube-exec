@@ -17,6 +17,9 @@ v1 = client.CoreV1Api()
 response = v1.list_namespaced_pod(args.n)
 
 for i in response.items:
+    if i.metadata.owner_references is None:
+        continue
+
     owner: str = i.metadata.owner_references[0].name
     command: str = ' '.join(args.command)
 
