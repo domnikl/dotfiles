@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# USAGE: kube-find <label-key=label-value> <path>
+
+set -e
+
+RESET_COLORS='\033[0m'
+GREEN_COLOR='\033[0;32m'
+
+FILTER=$1
+FILE=$2
+
+PODS=`kubectl get pods -o name -l $FILTER | sed 's/pod\///g'`
+
+for POD in $PODS
+do
+    F=$(kubectl exec --stdin --tty $POD -- ls $FILE 2>/dev/null) || true
+    F=${F//[$'\t\r\n']}
+
+    if [ "$F" == "$FILE" ]; then
+        echo -ne "${GREEN_COLOR}copying from $POD${RESET_COLORS} ... "
+        kubectl cp $POD:$FILE "~/Downloads/`basename $FILE`" > /dev/null
+        echo "OK"
+
+        open "~/Downloads"
+
+        exit 0
+    fi
+done
+
+>&2 echo "Couldn't find $FILE on any pod matching the filter $FILTER"
+exit 1
