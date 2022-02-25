@@ -1,6 +1,6 @@
 # dotfiles
 
-These are my dotfiles, living a happy life in ~.
+These are my dotfiles, living a happy life in `~`.
 
 ## Installation
 
@@ -17,6 +17,8 @@ To install Python dependencies required for running some of the scripts, do the 
 ```sh
 pip3 install -r requirements.txt
 ```
+
+Depending on the system and the terminal the dotfiles are used in, you may need to run Powerlevel10k setup again. Do so by running `p10k configure` and the assistant will guide you through the setup.
 
 ## Font
 
