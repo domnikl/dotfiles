@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# usage: convert-mkv-to-mp4 <files>
+
+set -euo pipefail
+
+OIFS="$IFS"
+IFS=$'\n'
+for file in $@; do
+    basename="`basename -s mkv "$file"`mp4"
+    dirname=`dirname "$file"`
+
+    echo "Converting $file to $dirname/$basename"
+    ffmpeg -i "$file" -c copy "$dirname/$basename"
+done
+IFS="$OIFS"
