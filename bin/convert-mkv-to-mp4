@@ -11,6 +11,7 @@ for file in $@; do
     dirname=`dirname "$file"`
 
     echo "Converting $file to $dirname/$basename"
-    ffmpeg -i "$file" -c copy "$dirname/$basename"
+    #ffmpeg -i "$file" -c copy "$dirname/$basename"
+    ffmpeg-normalize -v -ofmt mp4 -c:a aac -ext mp4 -of "$dirname" "$file"
 done
 IFS="$OIFS"
