@@ -1,9 +1,0 @@
-#!/bin/zsh
-
-set -e
-
-ffmpeg -f concat -i <(for f in ./*.MP4; do echo "file '$(pwd)/$f'"; done) -c copy output.mp4
-
-if type growlnotify >/dev/null 2>&1; then
-	growlnotify -n "concat_mp4s" -m "concat_mp4s is done here ($(pwd))" -i mp4 -s
-fi
