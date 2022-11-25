@@ -90,6 +90,7 @@ compdef _directories md
 alias tree='tree -a -I .git'
 alias git='LANG=en_US git'
 alias k='kubectl'
+alias cat='bat --paging=never'
 
 # Add flags to existing aliases.
 alias ls="${aliases[ls]:-ls} -A"
@@ -101,5 +102,14 @@ hash -d w="${ZDOTDIR:-$HOME}/Workspace"
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
+export GUM_INPUT_CURSOR_FOREGROUND="#F4AC45"
+export GUM_INPUT_PROMPT_FOREGROUND="#04B575"
+export GUM_INPUT_PLACEHOLDER="What's up?"
+export GUM_INPUT_PROMPT="* "
+export GUM_INPUT_WIDTH=80
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
