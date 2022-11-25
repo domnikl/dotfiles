@@ -25,11 +25,11 @@
 	changed = green
 	untracked = cyan
 
-[branch "master"]
+[branch "main"]
 	remote = origin
-	merge = refs/heads/master
+	merge = refs/heads/main
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [pull]
 	rebase = true
 [commit]

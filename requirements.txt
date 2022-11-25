@@ -1,3 +1,2 @@
-deltalake
 pandas
 kubernetes
