@@ -6,6 +6,9 @@ set history=500
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" Set auto chdir
+set autochdir
+
 " Ignore case when searching
 set ignorecase
 
@@ -41,3 +44,6 @@ set ffs=unix,dos,mac
 " more powerful backspacing
 set backspace=indent,eol,start
 
+set number
+set relativenumber
+set expandtab tabstop=4 shiftwidth=4
