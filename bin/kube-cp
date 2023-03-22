@@ -1,25 +1,49 @@
 #!/usr/bin/env bash
 
-# USAGE: kube-find <label-key=label-value> <path>
+# USAGE: kube-cp -n <namespace> <label-key=label-value> <path-in-pod>
+# Example: kube-cp -n zeppelin zeppelinInterpreter=true /tmp/paypal_bookings_H2_2022.csv
 
 set -e
 
 RESET_COLORS='\033[0m'
 GREEN_COLOR='\033[0;32m'
 
+NAMESPACE=default
+
+POSITIONAL_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -n|--namespace)
+      NAMESPACE="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1") # save positional arg
+      shift # past argument
+      ;;
+  esac
+done
+set -- "${POSITIONAL_ARGS[@]}"
+
 FILTER=$1
 FILE=$2
 
-PODS=`kubectl get pods -o name -l $FILTER | sed 's/pod\///g'`
+PODS=`kubectl get pods -n $NAMESPACE -o name -l $FILTER | sed 's/pod\///g'`
 
 for POD in $PODS
 do
-    F=$(kubectl exec --stdin --tty $POD -- ls $FILE 2>/dev/null) || true
+    F=$(kubectl exec -n $NAMESPACE --stdin --tty $POD -- ls $FILE 2>/dev/null) || true
     F=${F//[$'\t\r\n']}
 
     if [ "$F" == "$FILE" ]; then
-        echo -ne "${GREEN_COLOR}copying from $POD${RESET_COLORS} ... "
-        kubectl cp $POD:$FILE "~/Downloads/`basename $FILE`" > /dev/null
+        echo -ne "${GREEN_COLOR}copying from $POD ${RESET_COLORS} ... "
+        kubectl cp -n $NAMESPACE $POD:$FILE "~/Downloads/`basename $FILE`" > /dev/null
         echo "OK"
 
         open "~/Downloads"
@@ -28,5 +52,5 @@ do
     fi
 done
 
->&2 echo "Couldn't find $FILE on any pod matching the filter $FILTER"
+>&2 echo "Couldn't find $FILE on any pod matching the filter $FILTER in namespace $NAMESPACE"
 exit 1
