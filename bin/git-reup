@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env python
 #
 # Usage: git-up
 #        git-reup
@@ -15,47 +15,53 @@
 # https://github.com/holman/dotfiles/blob/master/bin/git-up
 # and then Barijaona Ramaholimihaso
 # https://gist.github.com/barijaona/3194807
-# and then Dominik Liebler
-# https://github.com/domnikl/dotfiles/blob/master/bin/git-reup
+# and then rewritten into Python by Dominik Liebler
+# https://github.com/domnikl/dotfiles/blob/main/bin/git-reup
 
-require 'shellwords'
+import os
+import subprocess
+import sys
 
-pull_args = ARGV.to_a
+pull_args = sys.argv[1:]
 
-rebase = File.basename($0) == 'git-reup'
-stashed = false
+rebase = os.path.basename(sys.argv[0]) == 'git-reup'
+stashed = False
 
-old_head = `git rev-parse HEAD`.chomp
+old_head = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode().strip()
 
-exit($?.to_i) unless $? == 0
+if rebase:
+    pull_args.append('--rebase')
 
-if rebase
-  pull_args.push '--rebase'
+    msg = subprocess.check_output(['git', 'stash', 'save', f'Auto-stash by {os.path.basename(sys.argv[0])} script']).decode().strip()
+    stashed = msg != 'No local changes to save'
 
-  msg = `git stash save "Auto-stash by #{File.basename($0)} script"`
-  stashed = msg !~ /^No local changes to save$/
-end
+subprocess.call(['git', 'pull'] + pull_args)
 
-system "git pull #{pull_args.shelljoin}"
+updated = (old_head != subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode().strip())
 
-updated = (old_head != `git rev-parse HEAD`.chomp)
+if stashed and rebase:
+    subprocess.call(['git', 'stash', 'pop', '--quiet'])
 
-system "git stash pop --quiet" if stashed && rebase
+if updated:
+    if rebase:
+        print("Diffstat:")
+        p1 = subprocess.Popen(['git', '--no-pager', 'diff', '--color', '--stat', f'{old_head}..'], stdout=subprocess.PIPE)
+        p2 = subprocess.Popen(["sed", "s/^/  /"], stdin=p1.stdout, stdout=subprocess.PIPE)
+        p1.stdout.close()  # Allow p1 to receive a SIGPIPE if p2 exits.
+        output, error = p2.communicate()
+        print(output.decode())
 
-if updated
-  if rebase
-    puts "Diffstat:"
-    system "git --no-pager diff --color --stat #{old_head}.. | sed 's/^/  /'"
-  end
+    print("Log:")
+    p1 = subprocess.Popen(['git', 'log', '--color', '--pretty=oneline', '--abbrev-commit', f'{old_head}..'], stdout=subprocess.PIPE)
+    p2 = subprocess.Popen(["sed", "s/^/  /"], stdin=p1.stdout, stdout=subprocess.PIPE)
+    p1.stdout.close()  # Allow p1 to receive a SIGPIPE if p2 exits.
+    output, error = p2.communicate()
+    print(output.decode())
 
-  puts "Log:"
-  system "git log --color --pretty=oneline --abbrev-commit #{old_head}.. | sed 's/^/  /'"
-end
+# delete branches merged and no longer needed
+merged_branches = subprocess.check_output(['git', 'branch', '--merged']).decode().splitlines()
+for branch in merged_branches:
+    chomped = branch.strip()
 
-`git branch --merged`.lines.each do |branch|
-  chomped = branch.chomp
-
-  unless chomped.start_with?("*") or chomped.end_with?("master") or chomped.end_with?("main")
-    system "git branch -d #{chomped}"
-  end
-end
+    if not chomped.startswith('*') and not chomped.endswith(('master', 'main')):
+        subprocess.call(['git', 'branch', '-d', chomped])
