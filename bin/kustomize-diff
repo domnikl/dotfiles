@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# needs diffutils on MacOS to display colored and beautiful diffs
+
+MAIN_BRANCH=main
+PREVIOUS_BRANCH=`git branch | grep '*' | awk '{print $2}'`
+FEATURE_BRANCH=$PREVIOUS_BRANCH
+
+# Parse command-line arguments
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    --main-branch)
+    MAIN_BRANCH="$2"
+    shift
+    shift
+    ;;
+    --feature-branch)
+    FEATURE_BRANCH="$2"
+    shift
+    shift
+    ;;
+    *)
+    echo "Unknown option: $1"
+    exit 1
+    ;;
+esac
+done
+
+# Check if required arguments are present
+if [[ -z $MAIN_BRANCH ]] || [[ -z $FEATURE_BRANCH ]]; then
+    echo "Usage: kustomize-diff [--main-branch <branch-name>] [--feature-branch <branch-name>]"
+    exit 1
+fi
+
+set -euo pipefail
+
+msg=`git stash save "Auto-stash by $(basename "$0") script"`
+stashed=true
+
+if [ "$msg" == "No local changes to save" ]; then
+    stashed=false
+fi
+
+# Checkout main branch and run kustomize
+git checkout $MAIN_BRANCH
+main_output=$(kustomize build . --enable-helm > "$MAIN_BRANCH.yaml")
+
+# Checkout feature branch and run command
+git checkout $FEATURE_BRANCH
+feature_output=$(kustomize build . --enable-helm > "$FEATURE_BRANCH.yaml")
+
+diff --color -r -c "$MAIN_BRANCH.yaml" "$FEATURE_BRANCH.yaml" || true
+
+# CLEANUP
+
+# cleanup files
+rm "$MAIN_BRANCH.yaml" "$FEATURE_BRANCH.yaml"
+
+# cleanup branch afterwards and restore stash if any
+git checkout $PREVIOUS_BRANCH
+
+if $stashed; then
+  git stash pop
+fi
