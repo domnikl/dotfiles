@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# adds a BOM to a file if it doesn't already have one, otherwise exits with an error
+# usage: add-bom <file>
+
+BOM='\xEF\xBB\xBF'
+if ! sed -n "1{/^$BOM/q1}" "$1"; then
+    echo "Already has BOM" >&2
+    exit 1
+fi
+sed -i "1s/^/$BOM/" "$1"
