@@ -110,6 +110,11 @@ export GUM_INPUT_WIDTH=80
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# Add JBang to environment
+alias j!=jbang
+export PATH="$HOME/.jbang/bin:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"

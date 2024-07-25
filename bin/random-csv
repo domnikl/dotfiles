@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# prints the header line and another random line from a CSV file
+
+set -e
+
+input=$1
+lines=$2
+
+head -1 $input
+shuf -n $lines $file -o -

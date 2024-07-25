@@ -23,3 +23,9 @@ Depending on the system and the terminal the dotfiles are used in, you may need 
 ## Font
 
 I use the MesloLGS NF font available [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k). Be sure to use that wherever your terminal runs (VSCode, IntelliJ IDEA, iTerm, Hyper, etc.).
+
+## Other useful tools
+
+```sh
+npm install --global git-open
+```
