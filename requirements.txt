@@ -1,2 +1,3 @@
 pandas
 kubernetes
+PyPDF2
