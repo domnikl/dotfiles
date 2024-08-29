@@ -11,7 +11,7 @@ zstyle ':z4h:' auto-update      'ask'
 zstyle ':z4h:' auto-update-days '28'
 
 # Move prompt to the bottom when zsh starts and on Ctrl+L.
-zstyle ':z4h:' prompt-at-bottom 'yes'
+zstyle ':z4h:' prompt-at-bottom 'no'
 
 # Keyboard type: 'mac' or 'pc'.
 zstyle ':z4h:bindkey' keyboard  'mac'
@@ -108,13 +108,14 @@ export GUM_INPUT_PLACEHOLDER="What's up?"
 export GUM_INPUT_PROMPT="* "
 export GUM_INPUT_WIDTH=80
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$(go env GOPATH)/bin"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# Add JBang to environment
-alias j!=jbang
-export PATH="$HOME/.jbang/bin:$PATH"
-export PATH="$PATH:$(go env GOPATH)/bin"
+. "$HOME/.atuin/bin/env"
+source <(fzf --zsh)
+
+eval "$(zoxide init zsh)"
+eval "$(atuin init zsh)"
