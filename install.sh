@@ -9,7 +9,7 @@ if ! [ -x "$(command -v stow)" ]; then
   exit 1
 fi
 
-stow .
+stow --ignore install.sh --ignore .DS_Store --ignore iTerm.json --ignore renovate.json --ignore requirements.txt .
 
 echo
 echo "now change your default shell to zsh: \`chsh -s /bin/zsh\`, open a new terminal"
