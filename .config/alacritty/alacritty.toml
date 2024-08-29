@@ -1,0 +1,13 @@
+[window]
+
+opacity = 0.9
+
+padding.x = 10
+padding.y = 10
+
+decorations = "Full"
+decorations_theme_variant = "Dark"
+
+[font]
+normal.family = "MesloLGS NF"
+size = 14.0
