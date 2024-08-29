@@ -7,12 +7,23 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "vim_mode": true,
   "base_keymap": "VSCode",
   "theme": "Andromeda",
-  "buffer_font_size": 15,
+  "buffer_font_size": 14,
+  "buffer_font_family": "Monaspace Argon",
+  "buffer_line_height": "comfortable",
+  "buffer_font_features": {
+    "calt": true,
+    "liga": true,
+    "ss01": true,
+    "ss02": true,
+    "ss04": true
+  },
   "terminal": {
     "dock": "bottom",
     "font_family": "MesloLGS NF",
-    "font_size": 15
-  }
+    "font_size": 14
+  },
+  "autosave": "on_focus_change"
 }

@@ -1,6 +1,7 @@
 [user]
 	name = Dominik Liebler
-	email = liebler.dominik@gmail.com
+	email = dominik.liebler@yazio.com
+	signingkey = 0421A261
 
 [alias]
 	co = checkout

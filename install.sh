@@ -1,18 +1,15 @@
 #!/usr/bin/env zsh
 
+set -euo pipefail
+
 DOTFILES_PATH=$(pwd)
 
-mkdir -p ~/.config/zed
-ln -fvs ${DOTFILES_PATH}/zed/settings.json ~/.config/zed/settings.json
+if ! [ -x "$(command -v stow)" ]; then
+  echo 'Error: stow is not installed.' >&2
+  exit 1
+fi
 
-setopt EXTENDED_GLOB
-for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-	  ln -fvs "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-done
-
-for rcfile in "$DOTFILES_PATH"/.*(.N); do
-	  ln -fvs "$rcfile" "${ZDOTDIR:-$HOME}/${rcfile:t}"
-done
+stow .
 
 echo
 echo "now change your default shell to zsh: \`chsh -s /bin/zsh\`, open a new terminal"
