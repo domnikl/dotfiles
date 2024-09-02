@@ -90,7 +90,6 @@ compdef _directories md
 alias tree='tree -a -I .git'
 alias git='LANG=en_US git'
 alias k='kubectl'
-alias cat='bat --paging=never'
 
 # Add flags to existing aliases.
 alias ls="${aliases[ls]:-ls} -A"
@@ -113,9 +112,3 @@ export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-. "$HOME/.atuin/bin/env"
-source <(fzf --zsh)
-
-eval "$(zoxide init zsh)"
-eval "$(atuin init zsh)"
