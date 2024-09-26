@@ -111,4 +111,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
 
+export EDITOR="vim"
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
