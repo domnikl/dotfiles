@@ -7,7 +7,7 @@ These are my dotfiles, living a happy life in `~`.
 Clone this repo and run:
 
 ```sh
-brew install direnv alacritty atuin fzf htop krew helm kustomize node python wget zsh direnv
+brew install direnv atuin fzf htop krew helm kustomize node python wget zsh direnv
 
 sh -c "$(wget -O- https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
 
@@ -20,7 +20,7 @@ Depending on the system and the terminal the dotfiles are used in, you may need 
 
 ## Font
 
-I use the MesloLGS NF font available [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k). Be sure to use that wherever your terminal runs (VSCode, IntelliJ IDEA, Alacritty etc.).
+I use the MesloLGS NF font available [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k). Be sure to use that wherever your terminal runs (VSCode, IntelliJ IDEA, iTerm etc.).
 
 ## Other useful tools
 

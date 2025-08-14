@@ -114,3 +114,6 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 export EDITOR="vim"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# keep shell history in iex
+export ERL_AFLAGS="-kernel shell_history enabled"
