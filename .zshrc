@@ -117,3 +117,4 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # keep shell history in iex
 export ERL_AFLAGS="-kernel shell_history enabled"
+eval "$(direnv hook zsh)"

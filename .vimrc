@@ -91,4 +91,3 @@ set backspace=indent,eol,start
 set number
 set relativenumber
 set expandtab tabstop=4 shiftwidth=4
-Plugin 'wakatime/vim-wakatime'
