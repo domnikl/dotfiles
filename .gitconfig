@@ -41,3 +41,5 @@
 	gpgsign = true
 [gpg "ssh"]
 	allowedSignersFile = /Users/dominik/.config/git/allowed_signers
+[credential]
+	helper = osxkeychain

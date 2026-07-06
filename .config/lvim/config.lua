@@ -168,8 +168,10 @@ lvim.plugins = {
   {
 --    "folke/trouble.nvim",
 --    cmd = "TroubleToggle",
-    "wakatime/vim-wakatime"
+--    "wakatime/vim-wakatime"
   },
+  -- jose-elias-alvarez/null-ls.nvim deleted upstream (404); repoint to maintained fork
+  --  { "nvimtools/none-ls.nvim", name = "null-ls.nvim", lazy = true },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
