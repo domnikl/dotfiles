@@ -28,3 +28,5 @@ _darcs
 ^/iTerm.json
 ^/renovate.json
 ^/requirements.txt
+
+^/.config/lvim

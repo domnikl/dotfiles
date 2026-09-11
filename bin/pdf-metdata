@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # extracts author and title from the filename and updates the metadata of the PDF file with the extracted information
 # pip install PyPDF2

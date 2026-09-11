@@ -4,6 +4,13 @@
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Never run under Rosetta 2
+if [[ "$(sysctl -n sysctl.proc_translated 2>/dev/null)" == 1 ]]; then
+  exec arch -arm64 "$SHELL" "$@"
+fi
+
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
 zstyle ':z4h:' auto-update      'ask'
@@ -90,6 +97,7 @@ compdef _directories md
 alias tree='tree -a -I .git'
 alias git='LANG=en_US git'
 alias k='kubectl'
+alias g='git'
 
 # Add flags to existing aliases.
 alias ls="${aliases[ls]:-ls} -A"
@@ -117,4 +125,10 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # keep shell history in iex
 export ERL_AFLAGS="-kernel shell_history enabled"
+
+# activate direnv if installed
 eval "$(direnv hook zsh)"
+
+# kustomize diff with bat
+kkd () { kubectl kustomize --enable-helm ${1:-.} | kubectl diff --server-side -f - | bat -l diff --style changes; }
+kks () { kubectl kustomize --enable-helm ${1:-.} | kubectl diff -f - | bat -l diff --style changes; }

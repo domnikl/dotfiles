@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage: kubeall [-n NAMESPACE] [-c CONTEXT] [-A]
+
+List all namespaced resources in a namespace.
+
+  -n, --namespace NAME   namespace to query (default: current context's namespace)
+  -A, --all-namespaces   query all namespaces
+  -c, --context NAME     kubeconfig context to use
+  -h, --help             show this help
+EOF
+}
+
+namespace=""
+context=""
+all_namespaces=false
+
+# Accept the flag forms kubectl accepts: "-n foo", "-nfoo", "-n=foo",
+# "--namespace foo" and "--namespace=foo".
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -n | --namespace)
+      [[ $# -ge 2 ]] || { echo "kubeall: flag needs an argument: $1" >&2; exit 1; }
+      namespace="$2"
+      shift 2
+      ;;
+    -n=* | --namespace=*)
+      namespace="${1#*=}"
+      shift
+      ;;
+    -n?*)
+      namespace="${1#-n}"
+      shift
+      ;;
+    -c | --context)
+      [[ $# -ge 2 ]] || { echo "kubeall: flag needs an argument: $1" >&2; exit 1; }
+      context="$2"
+      shift 2
+      ;;
+    -c=* | --context=*)
+      context="${1#*=}"
+      shift
+      ;;
+    -c?*)
+      context="${1#-c}"
+      shift
+      ;;
+    -A | --all-namespaces)
+      all_namespaces=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*)
+      echo "kubeall: unknown flag: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+if [[ $# -gt 0 ]]; then
+  echo "kubeall: unexpected argument: $1" >&2
+  usage >&2
+  exit 1
+fi
+
+if [[ "$all_namespaces" == true && -n "$namespace" ]]; then
+  echo "kubeall: -A/--all-namespaces cannot be combined with -n/--namespace" >&2
+  exit 1
+fi
+
+# bash 3.2 (macOS) treats "${empty[@]}" as unbound under set -u, hence the
+# ${arr[@]+...} guards below.
+args=()
+[[ -n "$context" ]] && args+=(--context "$context")
+
+# --all-namespaces is a per-command flag, so it goes to "get" only.
+scope=()
+if [[ "$all_namespaces" == true ]]; then
+  scope=(--all-namespaces)
+elif [[ -n "$namespace" ]]; then
+  scope=(--namespace "$namespace")
+fi
+
+kubectl ${args[@]+"${args[@]}"} api-resources --verbs=list --namespaced -o name \
+  | xargs -n 1 kubectl ${args[@]+"${args[@]}"} get --show-kind --ignore-not-found ${scope[@]+"${scope[@]}"}
